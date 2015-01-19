@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.Map;
 
 public class Morpion {
@@ -23,15 +24,24 @@ public class Morpion {
 
 	public String report() {
 		Reporter reporter = new Reporter();
-		for (char player : players.values()) {
-			if (isWinner(player)) {
-				return reporter.reportPlayer1Winn();
-			}
-		}
-
+		Iterator<String> playerss = players.keySet().iterator();
+		String player1 = playerss.next();
+		String player2 = playerss.next();
+		reporter.reportRemingGame(player1, 0, player2, 0);
+		
 		if (isGameOver())
 			return reporter.reportEquality();
 
+		return CheckAWinner(reporter);
+
+	}
+
+	private String CheckAWinner(Reporter reporter) {
+		for (String player : players.keySet()) {
+			if (isWinner(players.get(player))) {
+				return reporter.reportPlayerWin(player);
+			}
+		}
 		return "";
 	}
 
@@ -41,14 +51,9 @@ public class Morpion {
 	}
 
 	private boolean isWinner(char player) {
-
-		boolean winInAllCase = true;
-
-		winInAllCase |= checkIfIsWinnerInRow(player);
-
-		winInAllCase |= checkIfIsWinnerInColumn(player);
-
-		winInAllCase |= checkIfIsWinnerInDiagonal(player);
+		boolean winInAllCase = false;
+		winInAllCase = checkIfIsWinnerInRow(player) || checkIfIsWinnerInColumn(player)
+				|| checkIfIsWinnerInDiagonal(player);
 
 		return winInAllCase;
 	}

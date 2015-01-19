@@ -1,24 +1,16 @@
 public class Reporter {
 
-	private static final String SEPARATOR_ROW = "\n";
+	private static final String SEPARATOR_ROW = "\r\n";
 	private static final String SEPARATOR_COLUMN = "|";
-	private static final String PLAYER1 = "player1";
-	private static final String PLAYER2 = "player2";
 
-	public String reportPlayer1Winn() {
-		return reportPlayerWin(PLAYER1);
+	private StringBuilder builder = new StringBuilder();
+	
+	public void reportPlayerWin(String player) {
+		builder.append(String.format("Game Over, %s is a winner", player));
 	}
 
-	public String reportPlayer2Winn() {
-		return reportPlayerWin(PLAYER2);
-	}
-
-	private String reportPlayerWin(String player) {
-		return String.format("Game Over, %s is a winner", player);
-	}
-
-	public String reportEquality() {
-		return "Game Over, equality";
+	public void reportEquality() {
+		builder.append("Game Over, equality");
 	}
 
 	public String reportResultGame(char[][] game) {
@@ -31,6 +23,14 @@ public class Reporter {
 			builder.deleteCharAt(builder.length() - 1);
 			builder.append(SEPARATOR_ROW);
 		}
+		return builder.toString();
+	}
+
+	public void reportRemingGame(String player1, int numberGamePlayer1, String player2, int numberGamePlayer2) {
+		builder.append("%d games for %s, %d games for %s");
+	}
+	
+	public String reportAll(){
 		return builder.toString();
 	}
 }
