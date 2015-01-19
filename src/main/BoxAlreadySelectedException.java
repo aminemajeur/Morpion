@@ -1,4 +1,3 @@
-
-public class BoxAlreadySelectedException extends Exception{
+public class BoxAlreadySelectedException extends RuntimeException {
 
 }
