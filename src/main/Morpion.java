@@ -28,21 +28,21 @@ public class Morpion {
 		String player1 = playerss.next();
 		String player2 = playerss.next();
 		reporter.reportRemingGame(player1, 0, player2, 0);
-		
+
 		if (isGameOver())
-			return reporter.reportEquality();
+			reporter.reportEquality();
 
-		return CheckAWinner(reporter);
+		CheckAWinner(reporter);
 
+		return reporter.reportAll();
 	}
 
-	private String CheckAWinner(Reporter reporter) {
+	private void CheckAWinner(Reporter reporter) {
 		for (String player : players.keySet()) {
 			if (isWinner(players.get(player))) {
-				return reporter.reportPlayerWin(player);
+				reporter.reportPlayerWin(player);
 			}
 		}
-		return "";
 	}
 
 	public String display() {
